@@ -23,7 +23,31 @@ var validate = function (validatableInput) {
     if (validatableInput.min && typeof validatableInput.value === 'number') {
         isValid = isValid && validatableInput.value >= validatableInput.min;
     }
+    return isValid;
 };
+var ProjectList = /** @class */ (function () {
+    function ProjectList(type) {
+        this.type = type;
+        this.templateElement = document.getElementById('project-list');
+        this.hostElement = document.getElementById('app');
+        var importedNode = document.importNode(this.templateElement.content, true);
+        // console.log(importedNode);
+        this.element = importedNode.firstElementChild;
+        this.element.id = this.type + "-projects";
+        this.attach();
+        this.renderContent();
+    }
+    ProjectList.prototype.attach = function () {
+        this.hostElement.insertAdjacentElement('beforeend', this.element);
+    };
+    ProjectList.prototype.renderContent = function () {
+        var listId = this.type + "-projects-list";
+        this.element.querySelector('ul').id = listId;
+        this.element.querySelector('h2').textContent =
+            this.type.toUpperCase() + ' PROJECTS';
+    };
+    return ProjectList;
+}());
 var ProjectInput = /** @class */ (function () {
     function ProjectInput() {
         this.templateElement = document.getElementById('project-input');
@@ -55,17 +79,17 @@ var ProjectInput = /** @class */ (function () {
             minLength: 1,
         };
         var peopleValidatable = {
-            value: enteredPeople,
+            value: +enteredPeople,
             required: true,
             min: 1,
-            max: 10,
+            max: 5,
         };
         if (
         //validate
-        enteredPeople.trim().length === 0 ||
-            enteredTitle.trim().length === 0 ||
-            enteredDescription.trim().length === 0) {
-            alert('Please enter all the fields');
+        !validate(titleValidatable) ||
+            !validate(descriptionValidatable) ||
+            !validate(peopleValidatable)) {
+            alert('incorrect input');
             return;
         }
         return [enteredTitle, enteredDescription, +enteredPeople];
@@ -94,3 +118,5 @@ var ProjectInput = /** @class */ (function () {
     return ProjectInput;
 }());
 var project1 = new ProjectInput();
+var activeProjectList = new ProjectList('active');
+var finishedProjectList = new ProjectList('finished');
