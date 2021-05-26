@@ -1,6 +1,6 @@
-import { Component } from './base-component.js';
+import { Component } from './base-component';
 import { Project } from '../models/project';
-import { Draggable } from '../models/drag-drop.js';
+import { Draggable } from '../models/drag-drop';
 
 export class ProjectItem
   extends Component<HTMLUListElement, HTMLLIElement>
@@ -28,7 +28,7 @@ export class ProjectItem
     // console.log(event);
     event.dataTransfer!.setData('text/plain', this.project.id);
     event.dataTransfer!.effectAllowed = 'move';
-    console.log(this.project.id);
+    // console.log(this.project.id);
   }
   dragEndHandler(event: DragEvent) {
     // console.log(event);

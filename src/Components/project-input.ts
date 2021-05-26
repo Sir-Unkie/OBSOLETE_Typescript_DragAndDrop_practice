@@ -1,6 +1,6 @@
-import { Component } from './base-component.js';
-import { Validatable, validate } from '../Validation/validation.js';
-import { projectState } from '../State/state.js';
+import { Component } from './base-component';
+import { Validatable, validate } from '../Validation/validation';
+import { projectState } from '../State/state';
 
 export class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
   button: HTMLButtonElement;
@@ -66,11 +66,11 @@ export class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
 
   private submitHandler(e: Event) {
     e.preventDefault();
-    console.log(this.titleInput.value);
+    // console.log(this.titleInput.value);
     const userInput = this.gatherUserInput();
     if (Array.isArray(userInput)) {
       const [title, description, people] = userInput;
-      console.log(description);
+      //   console.log(description);
       projectState.addProject(title, description, people);
       this.clearInputs();
     }

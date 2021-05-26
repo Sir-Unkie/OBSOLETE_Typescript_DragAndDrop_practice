@@ -1,4 +1,4 @@
-import { Project } from '../models/project.js';
+import { Project } from '../models/project';
 type Listener<T> = (items: T[]) => void;
 
 export enum ProjectStatus {
@@ -45,7 +45,7 @@ export class ProjectState extends State<Project> {
       ProjectStatus.Active
     );
     this.projects.push(newproject);
-    console.log(this.listeners);
+    // console.log(this.listeners);
     this.updateListeners();
   }
 
@@ -54,7 +54,7 @@ export class ProjectState extends State<Project> {
       return el.id === projectId;
     });
     if (project && project.projectStatus !== newStatus) {
-      console.log('yeeees');
+      //   console.log('yeeees');
       project.projectStatus = newStatus;
       this.updateListeners();
     }

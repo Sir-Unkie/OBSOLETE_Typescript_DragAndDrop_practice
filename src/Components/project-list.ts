@@ -1,8 +1,8 @@
-import { Component } from './base-component.js';
+import { Component } from './base-component';
 import { Project } from '../models/project';
-import { ProjectItem } from './project-item.js';
-import { DragTarget } from '../models/drag-drop.js';
-import { projectState, ProjectStatus } from '../State/state.js';
+import { ProjectItem } from './project-item';
+import { DragTarget } from '../models/drag-drop';
+import { projectState, ProjectStatus } from '../State/state';
 
 export class ProjectList
   extends Component<HTMLDivElement, HTMLElement>
@@ -26,12 +26,13 @@ export class ProjectList
 
   dragLeaveHandler(event: DragEvent) {
     event.preventDefault();
+    // console.log('asdasdasd');
     const lisEl = this.element.querySelector('ul');
     lisEl!.classList.remove('droppable');
   }
 
   dropHandler(event: DragEvent) {
-    console.log('dropped');
+    // console.log('dropped');
     const prjId = event.dataTransfer!.getData('text/plain');
     projectState.moveProject(
       prjId,
